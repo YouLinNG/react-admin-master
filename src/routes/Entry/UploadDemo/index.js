@@ -2,6 +2,7 @@ import React from 'react'
 import {Card, Col, Row, Icon, Upload, message, Button, Modal,BackTop,Table,Divider} from 'antd'
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb'
 import TypingCard from '../../../components/TypingCard'
+import axios from 'axios';
 
 const Dragger = Upload.Dragger;
 
@@ -10,6 +11,8 @@ function getBase64(img, callback) {
   reader.addEventListener('load', () => callback(reader.result));
   reader.readAsDataURL(img);
 }
+
+
 
 const columns = [
   {
@@ -34,13 +37,8 @@ const columns = [
     key: 'action',
     render: (text, record) => (
         <span>
-      <a>Action 一 {record.name}</a>
-      <Divider type="vertical"/>
-      <a>Delete</a>
-      <Divider type="vertical"/>
-      <a className="ant-dropdown-link">
-        More actions <Icon type="down"/>
-      </a>
+      <a>导出到EXCEL</a>
+
     </span>
     ),
   }]
@@ -108,18 +106,34 @@ class UploadDemo extends React.Component {
   }
 
   handlePicture = () => {
-    console.log(this.state.fileList.length)
+    console.log(this.state.fileList)
     let formData = new FormData();
-    formData.append('file', this.state.fileList);
-    console.log(formData.get("file"))
-    fetch('http://localhost:8080/Ocr/name', {
+    for(let i = 0; i < this.state.fileList.length; i++) {
+        formData.append('file', this.state.fileList[i].name);
+    }
+    fetch('http://localhost:8080/Ocr', {
       method:'post',
       body:formData
     })
-        .then(res => res.text())
+        .then(res => res.json())
         .then(data => {
           console.log(data);
+
+            this.setState({ocrData: data});
     })
+
+      // axios({
+      //     method:"POST",
+      //     url:"http://localhost:8080/Ocr/name",
+      //     data:formData,
+      //     //withCredentials:true
+      // }).then(function(res){
+      //     this.setState({ocrData: res})
+      // }).catch(function(error){
+      //     alert('post失败')
+      //     console.log(error);
+      // });
+
   }
 
   handleChange = (info) => {
