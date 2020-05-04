@@ -90,14 +90,14 @@ class UploadDemo extends React.Component {
   state = {
     loading: false,
     previewVisible: false,
-    pictureList: [],
+    fileList: [],
     previewImage: '',
     ocrData: [],
   }
 
   beforeUpload(file, fileList) {
     this.setState(state => ({
-      pictureList: [...state.pictureList, file],
+        fileList: [...state.fileList, file],
     }));
 
     const isLt2M = file.size / 1024 / 1024 < 50;
@@ -107,14 +107,19 @@ class UploadDemo extends React.Component {
     return isLt2M;
   }
 
-  handlePicture = (fileList) => {
-
-    fetch("http://localhost:8080/Ocr",{type:'GET',data:fileList})
-        .then((res) => {
-          this.setState({
-            ocrData: res
-          })
-        })
+  handlePicture = () => {
+    console.log(this.state.fileList.length)
+    let formData = new FormData();
+    formData.append('file', this.state.fileList);
+    console.log(formData.get("file"))
+    fetch('http://localhost:8080/Ocr/name', {
+      method:'post',
+      body:formData
+    })
+        .then(res => res.text())
+        .then(data => {
+          console.log(data);
+    })
   }
 
   handleChange = (info) => {
@@ -176,7 +181,7 @@ class UploadDemo extends React.Component {
                 <Modal visible={this.state.previewVisible} onCancel={() => this.setState({previewVisible: false})}>
                   <img alt="example" style={{width: '100%'}} src={this.state.previewImage}/>
                 </Modal>
-                <Button type="danger" onClick={this.handlePicture(this.state.pictureList)}>
+                <Button type="danger" onClick={this.handlePicture}>
                   开始识别
                 </Button>
               </Card>
