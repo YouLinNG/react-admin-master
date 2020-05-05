@@ -1,8 +1,7 @@
 import React from 'react'
-import {Card, Col, Row, Icon, Upload, message, Button, Modal,BackTop,Table,Divider} from 'antd'
+import {Card, Col, Row, Icon, Upload, message, Button, Modal,BackTop,Table,Divider,Spin, Radio, List, Switch, Avatar,Anchor,Affix} from 'antd'
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb'
 import TypingCard from '../../../components/TypingCard'
-import axios from 'axios';
 
 const Dragger = Upload.Dragger;
 
@@ -11,41 +10,6 @@ function getBase64(img, callback) {
   reader.addEventListener('load', () => callback(reader.result));
   reader.readAsDataURL(img);
 }
-
-
-
-const columns = [
-  {
-    title: '姓名',
-    dataIndex: 'name',
-    key: 'name',
-    render: text => <a>{text}</a>,
-  }, {
-    title: '性别',
-    dataIndex: 'sex',
-    key: 'sex',
-  }, {
-    title: '出生日期',
-    dataIndex: 'birthdate',
-    key: 'birthdate',
-  }, {
-    title: '护照号码',
-    dataIndex: 'passportnumber',
-    key: 'passportnumber',
-  }, {
-    title: 'Action',
-    key: 'action',
-    render: (text, record) => (
-        <span>
-      <a>导出到EXCEL</a>
-
-    </span>
-    ),
-  }]
-
-
-
-
 
 const props = {
   name: 'file',
@@ -69,13 +33,13 @@ const props = {
 
 
 
-class UploadDemo extends React.Component {
+class CutDemo extends React.Component {
   state = {
     loading: false,
     previewVisible: false,
     fileList: [],
     previewImage: '',
-    ocrData: [],
+    cutData: [],
   }
 
   beforeUpload(file, fileList) {
@@ -96,7 +60,7 @@ class UploadDemo extends React.Component {
     for(let i = 0; i < this.state.fileList.length; i++) {
         formData.append('file', this.state.fileList[i].name);
     }
-    fetch('http://localhost:8080/Ocr', {
+    fetch('http://localhost:8080/Cut', {
       method:'post',
       body:formData
     })
@@ -104,7 +68,7 @@ class UploadDemo extends React.Component {
         .then(data => {
           console.log(data);
 
-            this.setState({ocrData: data});
+            this.setState({cutData: data});
     })
 
       // axios({
@@ -181,7 +145,22 @@ class UploadDemo extends React.Component {
 
           </Row>
 
-          <Table dataSource={this.state.ocrData} columns={columns} style={styles.tableStyle} />
+          <Row>
+          </Row>
+          <Card bordered={false} title='截取结果' style={{marginBottom: 15}} id='verticalStyle'>
+            <List dataSource={this.state.cutData}
+                  itemLayout='vertical'
+                  renderItem={item=>{
+                      return (
+                          <List.Item style={{display:'inline-block'}}>
+                            <List.Item.Meta
+                                avatar={<Avatar style = {{width:200,height:200}}src='data:img/png;base64,${item.base64}' />}/>
+                              {item.passnum}
+                          </List.Item>
+                      )
+                  }}
+            />
+          </Card>
           <BackTop visibilityHeight={200} style={{right: 50}}/>
         </div>
     )
@@ -196,4 +175,4 @@ const styles = {
   }
 }
 
-export default UploadDemo
+export default CutDemo

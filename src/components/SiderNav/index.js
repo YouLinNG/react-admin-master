@@ -41,6 +41,7 @@ const menus = [
         ]
       },
       {key: '/home/entry/upload', title: '上传', icon: ''},
+        {key: '/home/entry/cut', title: '截取', icon: ''}
     ]
   },
   {
