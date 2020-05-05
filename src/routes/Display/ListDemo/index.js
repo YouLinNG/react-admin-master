@@ -17,7 +17,7 @@ for(let i=0;i<23;i++){
     title: `ant design part ${i}`,
     avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
     description: 'Ant Design, a design language for background applications, is refined by Ant UED Team.',
-    content: 'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
+    content: 'G123456.',
   })
 }
 const IconText = ({ type, text }) => (
@@ -108,18 +108,12 @@ class ListDemo extends React.Component {
         <Card bordered={false} title='竖排列表样式' style={{marginBottom: 15}} id='verticalStyle'>
           <List dataSource={data3}
                 itemLayout='vertical'
-                pagination={{pageSize: 3}}
                 style={styles.listStyle}
                 renderItem={item=>{
                   return (
-                    <List.Item
-                      actions={[<IconText type="star-o" text="156" />, <IconText type="like-o" text="156" />, <IconText type="message" text="2" />]}
-                      extra={<img width={272} alt="logo" src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png" />}>
+                    <List.Item style={{display:'inline-block'}}>
                       <List.Item.Meta
-                        avatar={<Avatar src={item.avatar} />}
-                        title={<a>{item.title}</a>}
-                        description={item.description}
-                      />
+                        avatar={<Avatar style = {{width:200,height:200}}src={item.avatar} />}/>
                       {item.content}
                       </List.Item>
                   )

@@ -18,6 +18,7 @@ const StepsDemo = LoadableComponent(()=>import('../../routes/Navigation/StepsDem
 const FormDemo1 = LoadableComponent(()=>import('../../routes/Entry/FormDemo/FormDemo1'))
 const FormDemo2 = LoadableComponent(()=>import('../../routes/Entry/FormDemo/FormDemo2'))
 const UploadDemo = LoadableComponent(()=>import('../../routes/Entry/UploadDemo/index'))
+const CutDemo = LoadableComponent(()=>import('../../routes/Entry/CutDemo/index'))
 
 //显示组件Demo
 const CarouselDemo = LoadableComponent(()=>import('../../routes/Display/CarouselDemo/index'))
@@ -61,6 +62,7 @@ class ContentMain extends React.Component {
           <PrivateRoute exact path='/home/entry/form/basic-form' component={FormDemo1}/>
           <PrivateRoute exact path='/home/entry/form/step-form' component={FormDemo2}/>
           <PrivateRoute exact path='/home/entry/upload' component={UploadDemo}/>
+          <PrivateRoute exact path='/home/entry/cut' component={CutDemo}/>
 
           <PrivateRoute exact path='/home/display/carousel' component={CarouselDemo}/>
           <PrivateRoute exact path='/home/display/collapse' component={CollapseDemo}/>
