@@ -2,7 +2,8 @@ import React from 'react'
 import {Card, Col, Row, Icon, Upload, message, Button, Modal,BackTop,Table,Divider} from 'antd'
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb'
 import TypingCard from '../../../components/TypingCard'
-import axios from 'axios';
+import ExportJsonExcel from 'js-export-excel';
+import './css/style.css'
 
 const Dragger = Upload.Dragger;
 
@@ -19,28 +20,38 @@ const columns = [
     title: '姓名',
     dataIndex: 'name',
     key: 'name',
-    render: text => <a>{text}</a>,
+      render: (text, record) => {
+          return (
+              <span className={(text == null || text == "")? "error" : 'OK'}>{(text == null || text == "")? "无法识别": text}</span>);
+      }
   }, {
     title: '性别',
     dataIndex: 'sex',
     key: 'sex',
+        render: (text, record) => {
+            return (
+                <span className={(text == null || text == "")? "error" : 'OK'}>{(text == null || text == "")? "无法识别": text}</span>);
+        }
   }, {
     title: '出生日期',
-    dataIndex: 'birthdate',
-    key: 'birthdate',
+    dataIndex: 'birth',
+    key: 'birth',
+        render: (text, record) => {
+            return (
+            <span className={(text == null || text == "")? "error" : 'OK'}>{(text == null || text == "")? "无法识别": text}</span>);
+        }
   }, {
     title: '护照号码',
-    dataIndex: 'passportnumber',
-    key: 'passportnumber',
+    dataIndex: 'passnum',
+    key: 'passnum',
+        render: (text, record) => {
+            return (
+                <span className={(text == null || text == "")? "error" : 'OK'}>{(text == null || text == "")? "无法识别": text}</span>);
+        }
   }, {
-    title: 'Action',
+    title: '导出到Excel',
     key: 'action',
-    render: (text, record) => (
-        <span>
-      <a>导出到EXCEL</a>
-
-    </span>
-    ),
+    className:'actionStyle',
   }]
 
 
@@ -96,7 +107,7 @@ class UploadDemo extends React.Component {
     for(let i = 0; i < this.state.fileList.length; i++) {
         formData.append('file', this.state.fileList[i].name);
     }
-    fetch('http://localhost:8080/Ocr', {
+    fetch('http://localhost:8080/Ocr/Name', {
       method:'post',
       body:formData
     })
@@ -120,7 +131,29 @@ class UploadDemo extends React.Component {
       // });
 
   }
+  export = () => {
+      var option = {}
+      var data = []
+      var time = new Date()
+      var timestamp = Date.parse(time)
 
+      // for(let i = 0; i < this.state.ocrData.length; i++) {
+      //
+      // }
+      option.fileName = timestamp //导出的Excel文件名
+      option.datas = [
+          {
+              sheetData: this.state.ocrData,
+              sheetName: 'sheet',
+              sheetFilter: ['name', 'sex', 'birth', 'passnum'],
+              sheetHeader: ['name', 'sex', 'birth', 'passnum'],
+          }
+      ]
+
+      var toExcel = new ExportJsonExcel(option);
+      toExcel.saveExcel();
+
+  }
   handleChange = (info) => {
     if (info.file.status === 'uploading') {
       this.setState({loading: true});
@@ -181,8 +214,12 @@ class UploadDemo extends React.Component {
 
           </Row>
 
-          <Table dataSource={this.state.ocrData} columns={columns} style={styles.tableStyle} />
-          <BackTop visibilityHeight={200} style={{right: 50}}/>
+          <Table dataSource={this.state.ocrData} columns={columns} style={styles.tableStyle}
+                 onHeaderRow={column => {
+              return {
+                  onClick: () => {this.export()}, // 点击表头行
+              };
+          }} />
         </div>
     )
   }
@@ -195,5 +232,6 @@ const styles = {
     margin: '10px 0'
   }
 }
+
 
 export default UploadDemo

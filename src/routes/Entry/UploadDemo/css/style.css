@@ -1,0 +1,9 @@
+.actionStyle {
+    color: #0000cc !important;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.error{
+    color: red !important;
+}
