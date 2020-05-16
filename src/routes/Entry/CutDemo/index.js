@@ -60,7 +60,7 @@ class CutDemo extends React.Component {
     for(let i = 0; i < this.state.fileList.length; i++) {
         formData.append('file', this.state.fileList[i].name);
     }
-    fetch('http://localhost:8080/Cut', {
+    fetch('http://localhost:8080/Cut/Photo', {
       method:'post',
       body:formData
     })
@@ -154,7 +154,7 @@ class CutDemo extends React.Component {
                       return (
                           <List.Item style={{display:'inline-block'}}>
                             <List.Item.Meta
-                                avatar={<Avatar style = {{width:200,height:200}}src='data:img/png;base64,${item.base64}' />}/>
+                                avatar={<Avatar style = {{width:200,height:200}} src= {'data:img/png;base64,' + item.base64 } />}/>
                               {item.passnum}
                           </List.Item>
                       )

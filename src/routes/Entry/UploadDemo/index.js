@@ -96,7 +96,7 @@ class UploadDemo extends React.Component {
     for(let i = 0; i < this.state.fileList.length; i++) {
         formData.append('file', this.state.fileList[i].name);
     }
-    fetch('http://localhost:8080/Ocr', {
+    fetch('http://localhost:8080/Ocr/Name', {
       method:'post',
       body:formData
     })
