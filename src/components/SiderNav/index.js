@@ -40,7 +40,8 @@ const menus = [
           {key: '/home/entry/form/step-form', title: '分步表单', icon: ''}
         ]
       },
-      {key: '/home/entry/upload', title: '上传', icon: ''},
+      {key: '/home/entry/upload', title: '上传护照', icon: ''},
+        {key: '/home/entry/upload2', title: '上传申请表', icon: ''},
         {key: '/home/entry/cut', title: '截取', icon: ''}
     ]
   },

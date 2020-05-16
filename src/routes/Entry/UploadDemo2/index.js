@@ -2,9 +2,6 @@ import React from 'react'
 import {Card, Col, Row, Icon, Upload, message, Button, Modal,BackTop,Table,Divider} from 'antd'
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb'
 import TypingCard from '../../../components/TypingCard'
-import ExportJsonExcel from 'js-export-excel';
-import './css/style.css'
-
 const Dragger = Upload.Dragger;
 
 function getBase64(img, callback) {
@@ -20,38 +17,28 @@ const columns = [
     title: '姓名',
     dataIndex: 'name',
     key: 'name',
-      render: (text, record) => {
-          return (
-              <span className={(text == null || text == "")? "error" : 'OK'}>{(text == null || text == "")? "无法识别": text}</span>);
-      }
+    render: text => <a>{text}</a>,
   }, {
     title: '性别',
     dataIndex: 'sex',
     key: 'sex',
-        render: (text, record) => {
-            return (
-                <span className={(text == null || text == "")? "error" : 'OK'}>{(text == null || text == "")? "无法识别": text}</span>);
-        }
   }, {
     title: '出生日期',
     dataIndex: 'birth',
     key: 'birth',
-        render: (text, record) => {
-            return (
-            <span className={(text == null || text == "")? "error" : 'OK'}>{(text == null || text == "")? "无法识别": text}</span>);
-        }
   }, {
     title: '护照号码',
-    dataIndex: 'passnum',
-    key: 'passnum',
-        render: (text, record) => {
-            return (
-                <span className={(text == null || text == "")? "error" : 'OK'}>{(text == null || text == "")? "无法识别": text}</span>);
-        }
+    dataIndex: 'passportnumber',
+    key: 'passportnumber',
   }, {
-    title: '导出到Excel',
+    title: 'Action',
     key: 'action',
-    className:'actionStyle',
+    render: (text, record) => (
+        <span>
+      <a>导出到EXCEL</a>
+
+    </span>
+    ),
   }]
 
 
@@ -60,7 +47,7 @@ const columns = [
 
 const props = {
   name: 'file',
-  action: 'http://localhost:8080/File',
+  action: 'http://localhost:8080/File2',
 
   headers: {
     authorization: 'authorization-text',
@@ -80,7 +67,7 @@ const props = {
 
 
 
-class UploadDemo extends React.Component {
+class UploadDemo2 extends React.Component {
   state = {
     loading: false,
     previewVisible: false,
@@ -107,7 +94,7 @@ class UploadDemo extends React.Component {
     for(let i = 0; i < this.state.fileList.length; i++) {
         formData.append('file', this.state.fileList[i].name);
     }
-    fetch('http://localhost:8080/Ocr/Name', {
+    fetch('http://localhost:8080/Ocr2', {
       method:'post',
       body:formData
     })
@@ -115,7 +102,7 @@ class UploadDemo extends React.Component {
         .then(data => {
           console.log(data);
 
-            this.setState({ocrData: data});
+            // this.setState({ocrData: data});
     })
 
       // axios({
@@ -131,29 +118,7 @@ class UploadDemo extends React.Component {
       // });
 
   }
-  export = () => {
-      var option = {}
-      var data = []
-      var time = new Date()
-      var timestamp = Date.parse(time)
 
-      // for(let i = 0; i < this.state.ocrData.length; i++) {
-      //
-      // }
-      option.fileName = timestamp //导出的Excel文件名
-      option.datas = [
-          {
-              sheetData: this.state.ocrData,
-              sheetName: 'sheet',
-              sheetFilter: ['name', 'sex', 'birth', 'passnum'],
-              sheetHeader: ['name', 'sex', 'birth', 'passnum'],
-          }
-      ]
-
-      var toExcel = new ExportJsonExcel(option);
-      toExcel.saveExcel();
-
-  }
   handleChange = (info) => {
     if (info.file.status === 'uploading') {
       this.setState({loading: true});
@@ -195,7 +160,7 @@ class UploadDemo extends React.Component {
           <Row>
               <Card bordered={false} style={{...styles.colItem, minHeight: 255}} title='照片墙'>
                 <Upload
-                    action="http://localhost:8080/File/"
+                    action="http://localhost:8080/File2/"
                     listType="picture-card"
                     fileList={this.state.fileList}
                     onPreview={this.handlePreview}
@@ -214,12 +179,8 @@ class UploadDemo extends React.Component {
 
           </Row>
 
-          <Table dataSource={this.state.ocrData} columns={columns} style={styles.tableStyle}
-                 onHeaderRow={column => {
-              return {
-                  onClick: () => {this.export()}, // 点击表头行
-              };
-          }} />
+          {/*<Table dataSource={this.state.ocrData} columns={columns} style={styles.tableStyle} />*/}
+          <BackTop visibilityHeight={200} style={{right: 50}}/>
         </div>
     )
   }
@@ -233,5 +194,4 @@ const styles = {
   }
 }
 
-
-export default UploadDemo
+export default UploadDemo2
