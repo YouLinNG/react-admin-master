@@ -94,7 +94,7 @@ class UploadDemo2 extends React.Component {
     for(let i = 0; i < this.state.fileList.length; i++) {
         formData.append('file', this.state.fileList[i].name);
     }
-    fetch('http://localhost:8080/Ocr2', {
+    fetch('http://localhost:8080/Visa/Name', {
       method:'post',
       body:formData
     })
@@ -160,7 +160,7 @@ class UploadDemo2 extends React.Component {
           <Row>
               <Card bordered={false} style={{...styles.colItem, minHeight: 255}} title='照片墙'>
                 <Upload
-                    action="http://localhost:8080/File2/"
+                    action="http://localhost:8080/Visa/"
                     listType="picture-card"
                     fileList={this.state.fileList}
                     onPreview={this.handlePreview}
