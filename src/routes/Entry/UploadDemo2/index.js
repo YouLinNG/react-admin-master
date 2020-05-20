@@ -2,6 +2,8 @@ import React from 'react'
 import {Card, Col, Row, Icon, Upload, message, Button, Modal,BackTop,Table,Divider} from 'antd'
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb'
 import TypingCard from '../../../components/TypingCard'
+import './css/style.css'
+
 const Dragger = Upload.Dragger;
 
 function getBase64(img, callback) {
@@ -13,33 +15,48 @@ function getBase64(img, callback) {
 
 
 const columns = [
-  {
-    title: '姓名',
-    dataIndex: 'name',
-    key: 'name',
-    render: text => <a>{text}</a>,
-  }, {
-    title: '性别',
-    dataIndex: 'sex',
-    key: 'sex',
-  }, {
-    title: '出生日期',
-    dataIndex: 'birth',
-    key: 'birth',
-  }, {
-    title: '护照号码',
-    dataIndex: 'passportnumber',
-    key: 'passportnumber',
-  }, {
-    title: 'Action',
-    key: 'action',
-    render: (text, record) => (
-        <span>
-      <a>导出到EXCEL</a>
-
-    </span>
-    ),
-  }]
+    {
+      title:'是否匹配',
+        dataIndex:'exist',
+        key:'exist',
+        render:(text, record) => {
+            return (
+                <span className={(text == false)? "error" : 'OK'}>{text}</span>);
+        }
+    },
+    {
+        title: '姓名',
+        dataIndex: 'name',
+        key: 'name',
+        render: (text, record) => {
+            return (
+                <span>{(text == null || text == "")? "": text}</span>);
+        }
+    }, {
+        title: '性别',
+        dataIndex: 'sex',
+        key: 'sex',
+        render: (text, record) => {
+            return (
+                <span>{(text == null || text == "")? "": text}</span>);
+        }
+    }, {
+        title: '出生日期',
+        dataIndex: 'birth',
+        key: 'birth',
+        render: (text, record) => {
+            return (
+                <span>{(text == null || text == "")? "": text}</span>);
+        }
+    }, {
+        title: '护照号码',
+        dataIndex: 'passnum',
+        key: 'passnum',
+        render: (text, record) => {
+            return (
+                <span>{(text == null || text == "")? "": text}</span>);
+        }
+    }]
 
 
 
@@ -180,7 +197,8 @@ class UploadDemo2 extends React.Component {
           </Row>
 
           {/*<Table dataSource={this.state.ocrData} columns={columns} style={styles.tableStyle} />*/}
-          <BackTop visibilityHeight={200} style={{right: 50}}/>
+          <Table dataSource={this.state.ocrData} columns={columns}/>
+
         </div>
     )
   }

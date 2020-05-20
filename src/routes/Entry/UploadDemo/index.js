@@ -46,7 +46,7 @@ const columns = [
     key: 'passnum',
         render: (text, record) => {
             return (
-                <span className={(text == null || text == "")? "error" : 'OK'}>{(text == null || text == "")? "无法识别": text}</span>);
+                <span className={(text ==  null || text == "")? "error" : 'OK'}>{(text == null || text == "")? "无法识别": text}</span>);
         }
   }, {
     title: '导出到Excel',
