@@ -21,6 +21,8 @@ const UploadDemo = LoadableComponent(()=>import('../../routes/Entry/UploadDemo/i
 const UploadDemo2 = LoadableComponent(()=>import('../../routes/Entry/UploadDemo2/index'))
 
 const CutDemo = LoadableComponent(()=>import('../../routes/Entry/CutDemo/index'))
+const UnmatchedDemo = LoadableComponent(()=>import('../../routes/Entry/Unmatched/index'))
+const HistoryDemo = LoadableComponent(()=>import('../../routes/Entry/HistoryDemo/index'))
 
 //显示组件Demo
 const CarouselDemo = LoadableComponent(()=>import('../../routes/Display/CarouselDemo/index'))
@@ -66,6 +68,8 @@ class ContentMain extends React.Component {
           <PrivateRoute exact path='/home/entry/upload' component={UploadDemo}/>
           <PrivateRoute exact path='/home/entry/upload2' component={UploadDemo2}/>
           <PrivateRoute exact path='/home/entry/cut' component={CutDemo}/>
+          <PrivateRoute exact path='/home/entry/unmatched' component={UnmatchedDemo}/>
+          <PrivateRoute exact path='/home/entry/history' component={HistoryDemo}/>
 
           <PrivateRoute exact path='/home/display/carousel' component={CarouselDemo}/>
           <PrivateRoute exact path='/home/display/collapse' component={CollapseDemo}/>

@@ -21,7 +21,7 @@ const columns = [
         key:'exist',
         render:(text, record) => {
             return (
-                <span className={(text == false)? "error" : 'OK'}>{text}</span>);
+                <span className={(text == false)? "error" : 'OK'}>{text.toString()}</span>);
         }
     },
     {
@@ -172,12 +172,12 @@ class UploadDemo2 extends React.Component {
 
     return (
         <div>
-          <CustomBreadcrumb arr={['输入', '上传']}/>
+          <CustomBreadcrumb arr={[ '上传申请表']}/>
 
           <Row>
               <Card bordered={false} style={{...styles.colItem, minHeight: 255}} title='照片墙'>
                 <Upload
-                    action="http://localhost:8080/Visa/"
+                    action="http://localhost:8080/Visa"
                     listType="picture-card"
                     fileList={this.state.fileList}
                     onPreview={this.handlePreview}

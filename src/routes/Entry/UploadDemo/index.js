@@ -22,8 +22,9 @@ const columns = [
     key: 'name',
       render: (text, record) => {
           return (
-              <span className={(text == null || text == "")? "error" : 'OK'}>{(text == null || text == "")? "无法识别": text}</span>);
-      }
+              <span className={(text == null || text == "" || text.indexOf("wrong") != -1)? "error" : 'OK'}>{(text == null || text == "")? "无法识别": text}</span>);
+
+    }
   }, {
     title: '性别',
     dataIndex: 'sex',
@@ -46,7 +47,7 @@ const columns = [
     key: 'passnum',
         render: (text, record) => {
             return (
-                <span className={(text ==  null || text == "")? "error" : 'OK'}>{(text == null || text == "")? "无法识别": text}</span>);
+                <span className={(text ==  null || text == "" || text.indexOf("wrong") != -1)? "error" : 'OK'}>{(text == null || text == "")? "无法识别": text}</span>);
         }
   }, {
     title: '导出到Excel',
@@ -81,13 +82,7 @@ const props = {
 
 
 class UploadDemo extends React.Component {
-  state = {
-    loading: false,
-    previewVisible: false,
-    fileList: [],
-    previewImage: '',
-    ocrData: [],
-  }
+  state = {}
 
   beforeUpload(file, fileList) {
     this.setState(state => ({
@@ -190,7 +185,7 @@ class UploadDemo extends React.Component {
 
     return (
         <div>
-          <CustomBreadcrumb arr={['输入', '上传']}/>
+          <CustomBreadcrumb arr={['上传护照']}/>
 
           <Row>
               <Card bordered={false} style={{...styles.colItem, minHeight: 255}} title='照片墙'>
