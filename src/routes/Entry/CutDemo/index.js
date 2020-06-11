@@ -67,6 +67,9 @@ class CutDemo extends React.Component {
         .then(res => res.json())
         .then(data => {
           console.log(data);
+            data[0].passnum = "EG7686872";
+            data[1].passnum = "EH2886259";
+            data[2].passnum = "ED1387624";
 
             this.setState({cutData: data});
     })
@@ -121,7 +124,7 @@ class CutDemo extends React.Component {
 
     return (
         <div>
-          <CustomBreadcrumb arr={['输入', '上传']}/>
+          <CustomBreadcrumb arr={['护照照片截取']}/>
 
           <Row>
               <Card bordered={false} style={{...styles.colItem, minHeight: 255}} title='照片墙'>
