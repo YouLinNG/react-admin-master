@@ -25,36 +25,20 @@ const columns = [
         }
     },
     {
-        title: '姓名',
-        dataIndex: 'name',
-        key: 'name',
+        title: '生日是否匹配',
+        dataIndex: 'birthExist',
+        key: 'birthExist',
         render: (text, record) => {
             return (
-                <span>{(text == null || text == "")? "": text}</span>);
+                <span className={(text == false)? "error" : 'OK'}>{text.toString()}</span>);
         }
     }, {
-        title: '性别',
-        dataIndex: 'sex',
-        key: 'sex',
+        title: '姓名是否模糊匹配',
+        dataIndex: 'nameExist',
+        key: 'nameExist',
         render: (text, record) => {
             return (
-                <span>{(text == null || text == "")? "": text}</span>);
-        }
-    }, {
-        title: '出生日期',
-        dataIndex: 'birth',
-        key: 'birth',
-        render: (text, record) => {
-            return (
-                <span>{(text == null || text == "")? "": text}</span>);
-        }
-    }, {
-        title: '护照号码',
-        dataIndex: 'passnum',
-        key: 'passnum',
-        render: (text, record) => {
-            return (
-                <span>{(text == null || text == "")? "": text}</span>);
+                <span className={(text == false)? "error" : 'OK'}>{text.toString()}</span>);
         }
     }]
 
@@ -118,8 +102,7 @@ class UploadDemo2 extends React.Component {
         .then(res => res.json())
         .then(data => {
           console.log(data);
-
-            // this.setState({ocrData: data});
+          this.setState({ocrData: data});
     })
 
       // axios({
@@ -177,7 +160,7 @@ class UploadDemo2 extends React.Component {
           <Row>
               <Card bordered={false} style={{...styles.colItem, minHeight: 255}} title='照片墙'>
                 <Upload
-                    action="http://localhost:8080/Visa"
+                    action="http://localhost:8080/Visa/"
                     listType="picture-card"
                     fileList={this.state.fileList}
                     onPreview={this.handlePreview}
