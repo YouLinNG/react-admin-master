@@ -158,7 +158,7 @@ class UploadDemo2 extends React.Component {
           <CustomBreadcrumb arr={[ '上传申请表']}/>
 
           <Row>
-              <Card bordered={false} style={{...styles.colItem, minHeight: 255}} title='照片墙'>
+              <Card bordered={false} style={{...styles.colItem, minHeight: 255}} title='上传文件'>
                 <Upload
                     action="http://localhost:8080/Visa/"
                     listType="picture-card"

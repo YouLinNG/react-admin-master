@@ -52,14 +52,10 @@ class HeaderBar extends React.Component {
     const menu = (
       <Menu className='menu'>
         <Menu.ItemGroup title='用户中心' className='menu-group'>
-          <Menu.Item>你好 - {isAuthenticated()}</Menu.Item>
-          <Menu.Item>个人信息</Menu.Item>
+          <Menu.Item>你好，{isAuthenticated()}</Menu.Item>
           <Menu.Item><span onClick={this.logout}>退出登录</span></Menu.Item>
         </Menu.ItemGroup>
-        <Menu.ItemGroup title='设置中心' className='menu-group'>
-          <Menu.Item>个人设置</Menu.Item>
-          <Menu.Item>系统设置</Menu.Item>
-        </Menu.ItemGroup>
+
       </Menu>
     )
     const login = (
@@ -69,30 +65,17 @@ class HeaderBar extends React.Component {
     )
     return (
       <div id='headerbar'>
-        <Icon
-          type={collapsed ? 'menu-unfold' : 'menu-fold'}
-          className='trigger'
-          onClick={this.toggle}/>
+
         <div style={{lineHeight: '64px', float: 'right'}}>
           <ul className='header-ul'>
             <li><Icon type={icon} onClick={this.screenfullToggle}/></li>
-            <li onClick={() => this.setState({count: 0})}>
-              <Badge count={appStore.isLogin ? count : 0} overflowCount={99} style={{marginRight: -17}}>
-                <Icon type="notification"/>
-              </Badge>
-            </li>
+
             <li>
               {appStore.isLogin ? login : notLogin}
             </li>
           </ul>
         </div>
-        <Modal
-          footer={null} closable={false}
-          visible={visible}
-          wrapClassName="vertical-center-modal"
-          onCancel={() => this.setState({visible: false})}>
-          <img src={avatar} alt="" width='100%'/>
-        </Modal>
+
       </div>
     )
   }
