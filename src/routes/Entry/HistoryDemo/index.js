@@ -106,7 +106,7 @@ class HistoryDemo extends React.Component {
         for(let i = 0; i < this.state.fileList.length; i++) {
             formData.append('file', this.state.fileList[i].name);
         }
-        fetch('http://localhost:8080/Ocr/Name', {
+        fetch('http://localhost:8080/History/', {
             method:'post',
             body:formData
         })
