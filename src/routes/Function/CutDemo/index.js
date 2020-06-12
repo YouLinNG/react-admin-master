@@ -125,7 +125,7 @@ class CutDemo extends React.Component {
           <CustomBreadcrumb arr={['护照照片截取']}/>
 
           <Row>
-              <Card bordered={false} style={{...styles.colItem, minHeight: 255}} title='照片墙'>
+              <Card bordered={false} style={{...styles.colItem, minHeight: 255}} title='上传文件'>
                 <Upload
                     action="http://localhost:8080/File/"
                     listType="picture-card"
@@ -140,7 +140,7 @@ class CutDemo extends React.Component {
                   <img alt="example" style={{width: '100%'}} src={this.state.previewImage}/>
                 </Modal>
                 <Button type="danger" onClick={this.handlePicture}>
-                  开始识别
+                  开始截取
                 </Button>
               </Card>
 

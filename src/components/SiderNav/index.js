@@ -5,27 +5,32 @@ const menus = [
     {
     title: '上传护照',
     icon: 'file',
-    key: '/home/entry/upload'
+    key: '/home/function/upload'
   },
     {
         title: '上传申请表',
         icon: 'file',
-        key: '/home/entry/upload2'
+        key: '/home/function/upload2'
     },
     {
         title: '截取护照照片',
         icon: 'scissor',
-        key: '/home/entry/cut'
+        key: '/home/function/cut'
     },
     {
         title: '未匹配申请表',
         icon: 'file',
-        key: '/home/entry/unmatched'
+        key: '/home/function/unmatched'
     },
     {
         title: '历史识别护照',
         icon: 'file',
-        key: '/home/entry/history'
+        key: '/home/function/history'
+    },
+    {
+        title: '统计信息',
+        icon: 'file',
+        key: '/home/other/chart'
     }
 ]
 
