@@ -122,8 +122,9 @@ const styles = {
     left: '0',
     width: '100vw',
     height: '100vh',
-    // backgroundImage: 'url(https://github.com/zhangZhiHao1996/image-store/blob/master/react-admin-master/bg5.jpg?raw=true)',
-    backgroundImage: 'url(https://github.com/zhangZhiHao1996/image-store/blob/master/react-admin-master/bg1.jpg?raw=true)',
+    path: '1.jpg',
+     backgroundImage: 'url(https://github.com/YouLinNG/react-admin-master/blob/master/src/1.jpg?raw=true)',
+    //backgroundImage: 'url(https://github.com/zhangZhiHao1996/image-store/blob/master/react-admin-master/bg1.jpg?raw=true)',
     backgroundSize: '100% 100%',
     transition:'all .5s'
   },
@@ -144,7 +145,7 @@ const styles = {
     left:'50%',
     marginLeft: -45,
     marginTop: -18,
-    color:'#000',
+    color:'#eee9ea',
     fontWeight:500,
     fontSize:24
   },

@@ -34,6 +34,22 @@ class RegisterForm extends React.Component {
           username: values.registerUsername,
           password: values.registerPassword
         }]
+
+
+        let formData = new FormData();
+        formData.append('username', values.registerUsername);
+        formData.append('password', values.registerPassword);
+
+        fetch('http://localhost:8080/Account/Create', {
+          method: 'post',
+          body: formData,
+        })
+            .then(data => {
+              console.log(data);
+              // this.setState({ocrData: data});
+            })
+
+
         localStorage.setItem('users', JSON.stringify(obj))
         this.props.appStore.initUsers()
         message.success('注册成功')

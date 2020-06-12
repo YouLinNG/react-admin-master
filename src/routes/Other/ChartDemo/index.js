@@ -6,41 +6,46 @@ import { Chart, Axis, Geom, Tooltip, Coord, Label, Legend, G2 } from 'bizcharts'
 import { View } from '@antv/data-set'
 
 const data = [
-    {year: '1991', value: 3},
-    {year: '1992', value: 4},
-    {year: '1993', value: 3.5},
-    {year: '1994', value: 5},
-    {year: '1995', value: 4.9},
-    {year: '1996', value: 6},
-    {year: '1997', value: 7},
-    {year: '1998', value: 9},
-    {year: '1999', value: 13}
+    {week: '周一', value: 30, type:"护照"},
+    {week: '周二', value: 40, type:"护照"},
+    {week: '周三', value: 50, type:"护照"},
+    {week: '周四', value: 50, type:"护照"},
+    {week: '周五', value: 90, type:"护照"},
+    {week: '周六', value: 60, type:"护照"},
+    {week: '周日', value: 70, type:"护照"},
+
+    {week: '周一', value: 60, type:"申请表"},
+    {week: '周二', value: 50, type:"申请表"},
+    {week: '周三', value: 70, type:"申请表"},
+    {week: '周四', value: 80, type:"申请表"},
+    {week: '周五', value: 90, type:"申请表"},
+    {week: '周六', value: 40, type:"申请表"},
+    {week: '周日', value: 80, type:"申请表"},
 ]
 const cols = {
     'value': {min: 0},
-    'year': {range: [0, 1]}
 }
 
 const data2 = [
-    {year: '1951 年', sales: 38},
-    {year: '1952 年', sales: 52},
-    {year: '1956 年', sales: 61},
-    {year: '1957 年', sales: 145},
-    {year: '1958 年', sales: 48},
-    {year: '1959 年', sales: 38},
-    {year: '1960 年', sales: 38},
-    {year: '1962 年', sales: 38},
+    {week: '周一', sales: 3},
+    {week: '周二', sales: 5},
+    {week: '周三', sales: 6},
+    {week: '周四', sales: 4},
+    {week: '周五', sales: 4},
+    {week: '周六', sales: 3},
+    {week: '周日', sales: 3},
 ]
 const cols2 = {
-    'sales': {tickInterval: 20},
+    'sales': {tickInterval: 1},
 }
 
 const data3 = [
-    {item: '事例一', count: 40},
-    {item: '事例二', count: 21},
-    {item: '事例三', count: 17},
-    {item: '事例四', count: 13},
-    {item: '事例五', count: 9}
+    {item: '1950前', count: 6},
+    {item: '1960-1969', count: 18},
+    {item: '1970-1979', count: 12},
+    {item: '1980-1989', count: 27},
+    {item: '1990-1999', count: 33},
+    {item: '2000后', count: 4}
 ]
 const dv3 = new View()
 dv3.source(data3).transform({
@@ -49,6 +54,22 @@ dv3.source(data3).transform({
     dimension: 'item',
     as: 'percent'
 })
+
+const data5 = [
+    {item: '护照重叠', count: 2},
+    {item: '申请表重叠', count: 18},
+    {item: '护照倾斜', count: 24},
+    {item: '申请表倾斜', count: 36},
+    {item: '曝光过度', count: 20},
+]
+const dv5 = new View()
+dv5.source(data5).transform({
+    type: 'percent',
+    field: 'count',
+    dimension: 'item',
+    as: 'percent'
+})
+
 const cols3 = {
     percent: {
         formatter: val => {
@@ -448,34 +469,26 @@ class ChartDemo extends React.Component {
         return (
             <div>
               <CustomBreadcrumb arr={['其它', '图表']}/>
-              <TypingCard title='图表' source={cardContent}/>
-              <Row gutter={10}>
-                <Col span={12}>
-                  <Card title='基础折线图' bordered={false} className='card-item'>
+                  <Card title='上一周上传护照与申请表' bordered={false} className='card-item'>
                     <Chart height={400} data={data} scale={cols} forceFit>
-                      <Axis name="year"/>
+                        <Legend />
+                        <Axis name="week"/>
                       <Axis name="value"/>
                       <Tooltip crosshairs={{type: 'y'}}/>
-                      <Geom type="line" position="year*value" size={2}/>
-                      <Geom type='point' position="year*value" size={4} shape={'circle'}
+                      <Geom type="line" position="week*value" size={2} color={"type"}/>
+                      <Geom type='point' position="week*value" size={4} shape={'circle'} color={"type"}
                             style={{stroke: '#fff', lineWidth: 1}}/>
                     </Chart>
                   </Card>
-                </Col>
-                <Col span={12}>
-                  <Card title='基础柱状图' bordered={false} className='card-item'>
+                  <Card title='上一周未匹配申请表' bordered={false} className='card-item'>
                     <Chart height={400} data={data2} scale={cols2} forceFit>
-                      <Axis name="year"/>
+                      <Axis name="week"/>
                       <Axis name="sales"/>
                       <Tooltip crosshairs={{type: 'y'}}/>
-                      <Geom type="interval" position="year*sales"/>
+                      <Geom type="interval" position="week*sales"/>
                     </Chart>
                   </Card>
-                </Col>
-              </Row>
-              <Row gutter={10}>
-                <Col span={12}>
-                  <Card title='基础饼图' bordered={false} className='card-item'>
+                  <Card title='年龄分布比例' bordered={false} className='card-item'>
                     <Chart height={400} data={dv3} scale={cols3} padding={[80, 100, 80, 80]} forceFit>
                       <Coord type='theta' radius={0.75}/>
                       <Axis name="percent"/>
@@ -504,34 +517,35 @@ class ChartDemo extends React.Component {
                       </Geom>
                     </Chart>
                   </Card>
-                </Col>
-                <Col span={12}>
-                  <Card title='气泡图' bordered={false} className='card-item'>
-                    <Chart height={400} data={data4} scale={cols4} forceFit>
-                      <Tooltip showTitle={false}/>
-                      <Axis name='GDP' label={{
-                          formatter: (value) => {
-                              return (value / 1000).toFixed(0) + 'k'
-                          } // 格式化坐标轴的显示
-                      }}/>
-                      <Axis name='LifeExpectancy'/>
-                      <Legend reversed/>
-                      <Geom type='point' position="GDP*LifeExpectancy" color={['continent', val => {
-                          return colorMap[val]
-                      }]} tooltip='Country*Population*GDP*LifeExpectancy' opacity={0.65} shape="circle"
-                            size={['Population', [4, 65]]} style={['continent', {
-                          lineWidth: 1,
-                          strokeOpacity: 1,
-                          fillOpacity: 0.3,
-                          opacity: 0.65,
-                          stroke: val => {
-                              return colorMap[val]
-                          }
-                      }]}/>
-                    </Chart>
-                  </Card>
-                </Col>
-              </Row>
+                    <Card title='护照与申请表问题比例' bordered={false} className='card-item'>
+                        <Chart height={400} data={dv5} scale={cols3} padding={[80, 100, 80, 80]} forceFit>
+                            <Coord type='theta' radius={0.75}/>
+                            <Axis name="percent"/>
+                            {/*<Legend position='right' offsetY={-80} offsetX={-100}/>*/}
+                            <Legend position='right' offsetY={-80}/>
+                            <Tooltip
+                                showTitle={false}
+                                itemTpl='<li><span style="background-color:{color};" class="g2-tooltip-marker"></span>{name}: {value}</li>'
+                            />
+                            <Geom
+                                type="intervalStack"
+                                position="percent"
+                                color='item'
+                                tooltip={['item*percent', (item, percent) => {
+                                    percent = percent * 100 + '%'
+                                    return {
+                                        name: item,
+                                        value: percent
+                                    }
+                                }]}
+                                style={{lineWidth: 1, stroke: '#fff'}}
+                            >
+                                <Label content='percent' formatter={(val, item) => {
+                                    return item.point.item + ': ' + val
+                                }}/>
+                            </Geom>
+                        </Chart>
+                    </Card>
               <BackTop visibilityHeight={200} style={{right: 50}}/>
             </div>
         )

@@ -57,7 +57,7 @@ const columns = [
 
 
 
-
+const host = 'http://localhost:8080'
 
 const props = {
   name: 'file',
@@ -102,7 +102,7 @@ class UploadDemo extends React.Component {
     for(let i = 0; i < this.state.fileList.length; i++) {
         formData.append('file', this.state.fileList[i].name);
     }
-    fetch('http://localhost:8080/Ocr/Name', {
+    fetch(host + '/Ocr/Name', {
       method:'post',
       body:formData
     })
@@ -112,29 +112,14 @@ class UploadDemo extends React.Component {
 
             this.setState({ocrData: data});
     })
-
-      // axios({
-      //     method:"POST",
-      //     url:"http://localhost:8080/Ocr/name",
-      //     data:formData,
-      //     //withCredentials:true
-      // }).then(function(res){
-      //     this.setState({ocrData: res})
-      // }).catch(function(error){
-      //     alert('post失败')
-      //     console.log(error);
-      // });
-
   }
+
   export = () => {
       var option = {}
       var data = []
       var time = new Date()
       var timestamp = Date.parse(time)
 
-      // for(let i = 0; i < this.state.ocrData.length; i++) {
-      //
-      // }
       option.fileName = timestamp //导出的Excel文件名
       option.datas = [
           {

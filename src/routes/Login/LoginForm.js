@@ -17,6 +17,10 @@ class LoginForm extends React.Component {
     this.createCode()
   }
 
+
+
+
+
   /**
    * 生成验证码
    */
@@ -91,8 +95,23 @@ class LoginForm extends React.Component {
             return
           }
         }
+        let formData = new FormData();
+            formData.append('username', values.username);
+            formData.append('password', values.password)
 
-        this.props.appStore.toggleLogin(true, {username: values.username})
+          fetch('http://localhost:8080/Account/Login', {
+            method: 'post',
+            body: formData
+          })
+              .then(res =>
+                console.log(res)
+        )
+              .then(data => {
+                console.log(data);
+                // this.setState({ocrData: data});
+              })
+
+          this.props.appStore.toggleLogin(true, {username: values.username})
 
         const {from} = this.props.location.state || {from: {pathname: '/'}}
         this.props.history.push(from)
@@ -176,7 +195,7 @@ class LoginForm extends React.Component {
           </div>
         </Form>
         <div className='footer'>
-          <div>欢迎登陆后台管理系统</div>
+          <div>欢迎登陆检测平台</div>
         </div>
       </div>
     )
