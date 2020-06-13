@@ -87,6 +87,8 @@ class HistoryDemo extends React.Component {
     }
 
     componentDidMount() {
+        from = new Date("2020/01/01");
+        to = new Date("2020/06/01");
         var formData = new FormData();
         formData.append("from",from)
         formData.append("to",to)
